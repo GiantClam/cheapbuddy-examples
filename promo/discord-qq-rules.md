@@ -19,7 +19,10 @@
 - Quickstart：https://github.com/GiantClam/cheapbuddy-examples/blob/main/docs/quickstart.zh.md
 - 示例仓库：https://github.com/GiantClam/cheapbuddy-examples
 - V2EX 活动帖：https://www.v2ex.com/t/1252941
+- Discord：https://discord.gg/YWRu7UeaXn
 - 反馈：本频道发帖
+
+## Discord 邀请：https://discord.gg/YWRu7UeaXn
 
 ## 欢迎语（可复制）
 你好，这是 CheapBuddy API 技术群。先看置顶文档和 Quickstart；当前 Opus 5.5 限时 3 折。报错请带完整 JSON。禁硬广与账号交易。

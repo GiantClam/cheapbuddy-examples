@@ -40,3 +40,7 @@ export CHEAPBUDDY_API_KEY='your_key'
 ## License
 
 MIT
+
+## Community
+- Discord: https://discord.gg/YWRu7UeaXn
+- V2EX promo: https://www.v2ex.com/t/1252941
