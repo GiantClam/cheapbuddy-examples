@@ -28,5 +28,7 @@
 
 ## 文档
 https://cheapbuddy.cc/api-docs/
+示例仓库：https://github.com/GiantClam/cheapbuddy-examples
+V2EX 活动（Opus 5.5 3 折）：https://www.v2ex.com/t/1252941
 
 （文末可轻描一句：示例与 Quickstart 在仓库/文档；全文以排障为主，避免硬广口吻。）
