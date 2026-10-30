@@ -18,6 +18,12 @@ export CHEAPBUDDY_API_KEY='your_key'
 - [English](docs/quickstart.md)
 - [中文](docs/quickstart.zh.md)
 
+## Demo
+
+A static first-frame page lives in [`demo/`](demo/). Open it locally or on any static host, paste your own API key, and submit one image. The key stays in browser `localStorage` and is sent only to `https://api.cheapbuddy.cc`.
+
+See [demo/README.md](demo/README.md) for how to open it, the 720×1280 JPEG resize option, and the current browser-origin limit.
+
 ## Examples
 
 | Path | What it does |

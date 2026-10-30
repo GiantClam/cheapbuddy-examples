@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <title>CheapBuddy MiniMax-H3 first-frame demo</title>
+    <meta
+      name="description"
+      content="Upload one image, write a prompt, and generate a MiniMax-H3 video with first_frame only."
+    />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23141816'/%3E%3Crect x='11' y='4' width='10' height='24' rx='2' fill='%23e7f3ec'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="mast">
+        <p class="kicker">CheapBuddy examples</p>
+        <h1>MiniMax-H3 first frame</h1>
+        <p class="lede">
+          One image, one prompt, a vertical clip. This page calls
+          <code>https://api.cheapbuddy.cc</code> from your browser with your own key.
+        </p>
+      </header>
+
+      <div class="layout">
+        <form id="composer" class="panel" autocomplete="off">
+          <div class="warn" role="note">
+            <p class="warn-title">first_frame only</p>
+            <p>
+              This demo does not send <code>reference_image</code>, <code>last_frame</code>, or
+              <code>images</code>. Mixing a frame field with reference-image mode returns
+              <code>frame and reference roles cannot be mixed</code>.
+            </p>
+            <p lang="zh-Hans">
+              本页只上传首帧 <code>first_frame</code>，没有参考图开关。不要把首帧和参考图模式放进同一次请求。
+            </p>
+          </div>
+
+          <label class="field" for="api-key">
+            <span class="label-row">
+              <span>API key</span>
+              <button type="button" class="text-button" id="forget-key">Forget key</button>
+            </span>
+            <span class="key-row">
+              <input
+                id="api-key"
+                name="api-key"
+                type="password"
+                autocomplete="off"
+                autocapitalize="off"
+                autocorrect="off"
+                spellcheck="false"
+                placeholder="Paste your CheapBuddy key"
+                required
+              />
+              <label class="show-key" for="show-key">
+                <input id="show-key" type="checkbox" />
+                Show
+              </label>
+            </span>
+          </label>
+          <p class="hint">
+            Saved in this browser’s localStorage only. The key is attached to requests to
+            api.cheapbuddy.cc and is not sent to any other host. This page has no account and no backend.
+          </p>
+
+          <div class="field">
+            <span class="label-row" id="image-label">First frame</span>
+            <label class="drop" id="drop" for="image">
+              <input id="image" name="image" type="file" accept="image/*" required />
+              <span class="drop-title">Drop one image, or browse</span>
+              <span class="drop-meta" id="file-meta">JPEG or PNG works. One file.</span>
+            </label>
+          </div>
+
+          <label class="check" for="resize">
+            <input id="resize" name="resize" type="checkbox" checked />
+            <span>
+              <span class="check-title">Resize to 720×1280 JPEG</span>
+              <span class="hint">
+                On by default. The browser redraws the upload before it is sent. Leave this on —
+                oversized or unstable first frames often fail with
+                <code>upstream prompt optimization failed</code>.
+              </span>
+            </span>
+          </label>
+
+          <label class="field" for="prompt">
+            <span>Prompt</span>
+            <textarea id="prompt" name="prompt" rows="5" required>Character stands by a snowy riverside holding a bowl, then slips into shallow water.</textarea>
+          </label>
+
+          <label class="field" for="seconds">
+            <span>Seconds</span>
+            <select id="seconds" name="seconds"></select>
+            <span class="hint">Integers 4–15, matching the MiniMax-H3 video API. Default is 15.</span>
+          </label>
+
+          <dl class="specs">
+            <div>
+              <dt>model</dt>
+              <dd>MiniMax-H3</dd>
+            </div>
+            <div>
+              <dt>ratio</dt>
+              <dd>9:16</dd>
+            </div>
+            <div>
+              <dt>resolution</dt>
+              <dd>768P</dd>
+            </div>
+          </dl>
+
+          <div class="actions">
+            <button type="submit" class="primary" id="create">Create video</button>
+            <button type="button" id="stop" hidden>Stop polling</button>
+            <button type="button" id="resume" hidden>Resume polling</button>
+            <a id="download" class="download" hidden download>Download MP4</a>
+          </div>
+          <p class="hint">
+            A completed video is billed to the key you paste. Stopping polling does not cancel a task the API already accepted.
+          </p>
+        </form>
+
+        <section class="stage" aria-label="Preview">
+          <div class="frame" id="frame">
+            <p class="frame-empty" id="frame-empty">9:16</p>
+            <img id="frame-image" alt="" hidden />
+            <video id="frame-video" controls playsinline hidden></video>
+          </div>
+          <p class="frame-meta" id="frame-meta">The prepared first frame shows up here.</p>
+          <div id="status" class="status" role="status" aria-live="polite"></div>
+          <div class="meter" id="meter" hidden>
+            <span id="meter-bar"></span>
+          </div>
+          <p class="task-id" id="task-line" hidden></p>
+          <ol class="log" id="log"></ol>
+          <details class="raw">
+            <summary>Latest response</summary>
+            <pre id="raw">Waiting for a task.</pre>
+          </details>
+        </section>
+      </div>
+
+      <footer class="foot">
+        <a href="https://cheapbuddy.cc/api-docs/" target="_blank" rel="noopener noreferrer">API docs</a>
+        <a href="https://github.com/GiantClam/cheapbuddy-examples" target="_blank" rel="noopener noreferrer">cheapbuddy-examples</a>
+      </footer>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
